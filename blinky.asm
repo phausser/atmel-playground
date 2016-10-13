@@ -60,19 +60,12 @@ _wait_loop:
     ; Button IRQ
 button:
     push r16
-    push xl
-    push xh
 
-    ldi xl, low(_button_data)
-    ldi xh, high(_button_data)
-
-    ld r16, x
-    com r16
+    ldi r16, 0
+    sbic PINB, PORTB2
+    ldi r16, 10
     out OCR0B, r16
-    st x, r16
 
-    pop xh
-    pop xl
     pop r16
     reti
 
@@ -108,5 +101,3 @@ _timer_end:
 _timer_data:
     ; cnt, val
     .byte 0, 0
-_button_data:
-    .byte 0
