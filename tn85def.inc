@@ -2,7 +2,7 @@
 ;***** Created: 2011-02-09 12:04 ******* Source: ATtiny85.xml ************
 ;*************************************************************************
 ;* A P P L I C A T I O N   N O T E   F O R   T H E   A V R   F A M I L Y
-;* 
+;*
 ;* Number            : AVR000
 ;* File Name         : "tn85def.inc"
 ;* Title             : Register/Bit Definitions for the ATtiny85
@@ -10,27 +10,27 @@
 ;* Version           : 2.35
 ;* Support E-mail    : avr@atmel.com
 ;* Target MCU        : ATtiny85
-;* 
+;*
 ;* DESCRIPTION
-;* When including this file in the assembly program file, all I/O register 
+;* When including this file in the assembly program file, all I/O register
 ;* names and I/O register bit names appearing in the data book can be used.
-;* In addition, the six registers forming the three data pointers X, Y and 
-;* Z have been assigned names XL - ZH. Highest RAM address for Internal 
-;* SRAM is also defined 
-;* 
+;* In addition, the six registers forming the three data pointers X, Y and
+;* Z have been assigned names XL - ZH. Highest RAM address for Internal
+;* SRAM is also defined
+;*
 ;* The Register names are represented by their hexadecimal address.
-;* 
+;*
 ;* The Register Bit names are represented by their bit number (0-7).
-;* 
+;*
 ;* Please observe the difference in using the bit names with instructions
 ;* such as "sbr"/"cbr" (set/clear bit in register) and "sbrs"/"sbrc"
 ;* (skip if bit in register set/cleared). The following example illustrates
 ;* this:
-;* 
+;*
 ;* in    r16,PORTB             ;read PORTB latch
 ;* sbr   r16,(1<<PB6)+(1<<PB5) ;set PB6 and PB5 (use masks, not bit#)
 ;* out   PORTB,r16             ;output to PORTB
-;* 
+;*
 ;* in    r16,TIFR              ;read the Timer Interrupt Flag Register
 ;* sbrc  r16,TOV0              ;test the overflow flag (use bit#)
 ;* rjmp  TOV0_is_set           ;jump if set
@@ -116,34 +116,34 @@
 
 ; ***** PORTB ************************
 ; PORTB - Data Register, Port B
-.equ	PORTB0	= 0	; 
+.equ	PORTB0	= 0	;
 .equ	PB0	= 0	; For compatibility
-.equ	PORTB1	= 1	; 
+.equ	PORTB1	= 1	;
 .equ	PB1	= 1	; For compatibility
-.equ	PORTB2	= 2	; 
+.equ	PORTB2	= 2	;
 .equ	PB2	= 2	; For compatibility
-.equ	PORTB3	= 3	; 
+.equ	PORTB3	= 3	;
 .equ	PB3	= 3	; For compatibility
-.equ	PORTB4	= 4	; 
+.equ	PORTB4	= 4	;
 .equ	PB4	= 4	; For compatibility
-.equ	PORTB5	= 5	; 
+.equ	PORTB5	= 5	;
 .equ	PB5	= 5	; For compatibility
 
 ; DDRB - Data Direction Register, Port B
-.equ	DDB0	= 0	; 
-.equ	DDB1	= 1	; 
-.equ	DDB2	= 2	; 
-.equ	DDB3	= 3	; 
-.equ	DDB4	= 4	; 
-.equ	DDB5	= 5	; 
+.equ	DDB0	= 0	;
+.equ	DDB1	= 1	;
+.equ	DDB2	= 2	;
+.equ	DDB3	= 3	;
+.equ	DDB4	= 4	;
+.equ	DDB5	= 5	;
 
 ; PINB - Input Pins, Port B
-.equ	PINB0	= 0	; 
-.equ	PINB1	= 1	; 
-.equ	PINB2	= 2	; 
-.equ	PINB3	= 3	; 
-.equ	PINB4	= 4	; 
-.equ	PINB5	= 5	; 
+.equ	PINB0	= 0	;
+.equ	PINB1	= 1	;
+.equ	PINB2	= 2	;
+.equ	PINB3	= 3	;
+.equ	PINB4	= 4	;
+.equ	PINB5	= 5	;
 
 
 ; ***** ANALOG_COMPARATOR ************
@@ -160,7 +160,7 @@
 .equ	AINBG	= ACBG	; For compatibility
 .equ	ACD	= 7	; Analog Comparator Disable
 
-; DIDR0 - 
+; DIDR0 -
 .equ	AIN0D	= 0	; AIN0 Digital Input Disable
 .equ	AIN1D	= 1	; AIN1 Digital Input Disable
 
@@ -355,39 +355,39 @@
 .equ	CS00	= 0	; Clock Select
 .equ	CS01	= 1	; Clock Select
 .equ	CS02	= 2	; Clock Select
-.equ	WGM02	= 3	; 
+.equ	WGM02	= 3	;
 .equ	FOC0B	= 6	; Force Output Compare B
 .equ	FOC0A	= 7	; Force Output Compare A
 
 ; TCNT0 - Timer/Counter0
-.equ	TCNT0_0	= 0	; 
-.equ	TCNT0_1	= 1	; 
-.equ	TCNT0_2	= 2	; 
-.equ	TCNT0_3	= 3	; 
-.equ	TCNT0_4	= 4	; 
-.equ	TCNT0_5	= 5	; 
-.equ	TCNT0_6	= 6	; 
-.equ	TCNT0_7	= 7	; 
+.equ	TCNT0_0	= 0	;
+.equ	TCNT0_1	= 1	;
+.equ	TCNT0_2	= 2	;
+.equ	TCNT0_3	= 3	;
+.equ	TCNT0_4	= 4	;
+.equ	TCNT0_5	= 5	;
+.equ	TCNT0_6	= 6	;
+.equ	TCNT0_7	= 7	;
 
 ; OCR0A - Timer/Counter0 Output Compare Register
-.equ	OCR0_0	= 0	; 
-.equ	OCR0_1	= 1	; 
-.equ	OCR0_2	= 2	; 
-.equ	OCR0_3	= 3	; 
-.equ	OCR0_4	= 4	; 
-.equ	OCR0_5	= 5	; 
-.equ	OCR0_6	= 6	; 
-.equ	OCR0_7	= 7	; 
+.equ	OCR0_0	= 0	;
+.equ	OCR0_1	= 1	;
+.equ	OCR0_2	= 2	;
+.equ	OCR0_3	= 3	;
+.equ	OCR0_4	= 4	;
+.equ	OCR0_5	= 5	;
+.equ	OCR0_6	= 6	;
+.equ	OCR0_7	= 7	;
 
 ; OCR0B - Timer/Counter0 Output Compare Register
-;.equ	OCR0_0	= 0	; 
-;.equ	OCR0_1	= 1	; 
-;.equ	OCR0_2	= 2	; 
-;.equ	OCR0_3	= 3	; 
-;.equ	OCR0_4	= 4	; 
-;.equ	OCR0_5	= 5	; 
-;.equ	OCR0_6	= 6	; 
-;.equ	OCR0_7	= 7	; 
+;.equ	OCR0_0	= 0	;
+;.equ	OCR0_1	= 1	;
+;.equ	OCR0_2	= 2	;
+;.equ	OCR0_3	= 3	;
+;.equ	OCR0_4	= 4	;
+;.equ	OCR0_5	= 5	;
+;.equ	OCR0_6	= 6	;
+;.equ	OCR0_7	= 7	;
 
 ; GTCCR - General Timer/Counter Control Register
 .equ	PSR0	= 0	; Prescaler Reset Timer/Counter1 and Timer/Counter0
@@ -436,14 +436,14 @@
 .equ	OCR1B7	= 7	; Output Compare Register B Bit 7
 
 ; OCR1C - Output compare register
-.equ	OCR1C0	= 0	; 
-.equ	OCR1C1	= 1	; 
-.equ	OCR1C2	= 2	; 
-.equ	OCR1C3	= 3	; 
-.equ	OCR1C4	= 4	; 
-.equ	OCR1C5	= 5	; 
-.equ	OCR1C6	= 6	; 
-.equ	OCR1C7	= 7	; 
+.equ	OCR1C0	= 0	;
+.equ	OCR1C1	= 1	;
+.equ	OCR1C2	= 2	;
+.equ	OCR1C3	= 3	;
+.equ	OCR1C4	= 4	;
+.equ	OCR1C5	= 5	;
+.equ	OCR1C6	= 6	;
+.equ	OCR1C7	= 7	;
 
 ; TIMSK - Timer/Counter Interrupt Mask Register
 .equ	TOIE1	= 2	; Timer/Counter1 Overflow Interrupt Enable
@@ -464,28 +464,28 @@
 .equ	PWM1B	= 6	; Pulse Width Modulator B Enable
 
 ; DTPS - Dead time prescaler register
-.equ	DTPS0	= 0	; 
-.equ	DTPS1	= 1	; 
+.equ	DTPS0	= 0	;
+.equ	DTPS1	= 1	;
 
 ; DT1A - Dead time value register
-.equ	DTVL0	= 0	; 
-.equ	DTVL1	= 1	; 
-.equ	DTVL2	= 2	; 
-.equ	DTVL3	= 3	; 
-.equ	DTVH0	= 4	; 
-.equ	DTVH1	= 5	; 
-.equ	DTVH2	= 6	; 
-.equ	DTVH3	= 7	; 
+.equ	DTVL0	= 0	;
+.equ	DTVL1	= 1	;
+.equ	DTVL2	= 2	;
+.equ	DTVL3	= 3	;
+.equ	DTVH0	= 4	;
+.equ	DTVH1	= 5	;
+.equ	DTVH2	= 6	;
+.equ	DTVH3	= 7	;
 
 ; DT1B - Dead time value B
-;.equ	DTVL0	= 0	; 
-;.equ	DTVL1	= 1	; 
-;.equ	DTVL2	= 2	; 
-;.equ	DTVL3	= 3	; 
-;.equ	DTVH0	= 4	; 
-;.equ	DTVH1	= 5	; 
-;.equ	DTVH2	= 6	; 
-;.equ	DTVH3	= 7	; 
+;.equ	DTVL0	= 0	;
+;.equ	DTVL1	= 1	;
+;.equ	DTVL2	= 2	;
+;.equ	DTVL3	= 3	;
+;.equ	DTVH0	= 4	;
+;.equ	DTVH1	= 5	;
+;.equ	DTVH2	= 6	;
+;.equ	DTVH3	= 7	;
 
 
 ; ***** BOOT_LOAD ********************
@@ -552,44 +552,44 @@
 .equ	CLKPCE	= 7	; Clock Prescaler Change Enable
 
 ; DWDR - debugWire data register
-.equ	DWDR0	= 0	; 
-.equ	DWDR1	= 1	; 
-.equ	DWDR2	= 2	; 
-.equ	DWDR3	= 3	; 
-.equ	DWDR4	= 4	; 
-.equ	DWDR5	= 5	; 
-.equ	DWDR6	= 6	; 
-.equ	DWDR7	= 7	; 
+.equ	DWDR0	= 0	;
+.equ	DWDR1	= 1	;
+.equ	DWDR2	= 2	;
+.equ	DWDR3	= 3	;
+.equ	DWDR4	= 4	;
+.equ	DWDR5	= 5	;
+.equ	DWDR6	= 6	;
+.equ	DWDR7	= 7	;
 
 ; GPIOR2 - General Purpose IO register 2
-.equ	GPIOR20	= 0	; 
-.equ	GPIOR21	= 1	; 
-.equ	GPIOR22	= 2	; 
-.equ	GPIOR23	= 3	; 
-.equ	GPIOR24	= 4	; 
-.equ	GPIOR25	= 5	; 
-.equ	GPIOR26	= 6	; 
-.equ	GPIOR27	= 7	; 
+.equ	GPIOR20	= 0	;
+.equ	GPIOR21	= 1	;
+.equ	GPIOR22	= 2	;
+.equ	GPIOR23	= 3	;
+.equ	GPIOR24	= 4	;
+.equ	GPIOR25	= 5	;
+.equ	GPIOR26	= 6	;
+.equ	GPIOR27	= 7	;
 
 ; GPIOR1 - General Purpose register 1
-.equ	GPIOR10	= 0	; 
-.equ	GPIOR11	= 1	; 
-.equ	GPIOR12	= 2	; 
-.equ	GPIOR13	= 3	; 
-.equ	GPIOR14	= 4	; 
-.equ	GPIOR15	= 5	; 
-.equ	GPIOR16	= 6	; 
-.equ	GPIOR17	= 7	; 
+.equ	GPIOR10	= 0	;
+.equ	GPIOR11	= 1	;
+.equ	GPIOR12	= 2	;
+.equ	GPIOR13	= 3	;
+.equ	GPIOR14	= 4	;
+.equ	GPIOR15	= 5	;
+.equ	GPIOR16	= 6	;
+.equ	GPIOR17	= 7	;
 
 ; GPIOR0 - General purpose register 0
-.equ	GPIOR00	= 0	; 
-.equ	GPIOR01	= 1	; 
-.equ	GPIOR02	= 2	; 
-.equ	GPIOR03	= 3	; 
-.equ	GPIOR04	= 4	; 
-.equ	GPIOR05	= 5	; 
-.equ	GPIOR06	= 6	; 
-.equ	GPIOR07	= 7	; 
+.equ	GPIOR00	= 0	;
+.equ	GPIOR01	= 1	;
+.equ	GPIOR02	= 2	;
+.equ	GPIOR03	= 3	;
+.equ	GPIOR04	= 4	;
+.equ	GPIOR05	= 5	;
+.equ	GPIOR06	= 6	;
+.equ	GPIOR07	= 7	;
 
 
 
