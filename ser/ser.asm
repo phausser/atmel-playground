@@ -1,5 +1,5 @@
 .nolist
-.include "../tn2313def.inc"
+.include "../inc/tn2313def.inc"
 .list
 
 .def a = r16
@@ -11,33 +11,38 @@
      
 .cseg
 .org 0x0000
-        rjmp main
+        rjmp start
 
-.include "ser.inc"
+.include "../inc/ser.inc"
 
-main:
+start:
         ldi a, low(RAMEND)             ; Init Stack Pointer
         out spl, a
+
+        ldi a, (1<<DDD6)
+        out DDRD, a
+        ldi a, (1<<PORTD6)
+        out PORTD, a
 
         SER_INIT CLOCK, BAUD
 
 loop:
         ldi a, '='
         rcall ser_write
-        ldi a, ')'
-        rcall ser_write
-
-        rcall delay
         rcall delay
         
+        ldi a, ')'
+        rcall ser_write
+        rcall delay
+
         nop
         rjmp loop
 
-delay:
+delay: 
         push x
         push y
 
-        ldi x, 255
+        ldi x, 200
         clr y
 _delay_loop:
         dec y

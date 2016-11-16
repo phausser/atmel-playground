@@ -37,11 +37,11 @@ delay:
 
         ldi x, 255
         clr y
-_delay_loop:
+_1:
         dec y
-        brne _delay_loop
+        brne _1
         dec x
-        brne _delay_loop
+        brne _1
 
         pop y
         pop x
