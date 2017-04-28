@@ -35,10 +35,7 @@ _b2asc_a:
 		rjmp _b2asc_loop
 _b2asc_no17:		
 
-		lsr	r16
-		lsr	r16
-		lsr	r16
-		lsr	r16
+		swap r16
 		rjmp _b2asc_loop
 
 _b2asc_out:

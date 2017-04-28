@@ -1,7 +1,7 @@
 ; avra blinky.asm && avrdude -p attiny85 -c usbasp -b 19200 -U flash:w:blinky.hex
 
 .nolist
-.include "tn2313def.inc"
+.include "../inc/m328pdef.inc"
 .list
 
 .cseg
@@ -13,13 +13,44 @@ init:
     ldi r16, RAMEND         ; Init Stack
     out spl, r16
 
-    ldi r16, (1 << DDD6)    ; Init Ports
-    out DDRD, r16
+    ldi r16, (1 << DDB0)    ; Init Ports
+    out DDRB, r16
 
 loop:                       ; Main Loop
-    sbi PORTD, PORTD6
+    sbi PORTB, PORTB0
     rcall wait
-    cbi PORTD, PORTD6
+    rcall wait
+    rcall wait
+    rcall wait
+    rcall wait
+    rcall wait
+    rcall wait
+    rcall wait
+    rcall wait
+    rcall wait
+    rcall wait
+    rcall wait
+    rcall wait
+    rcall wait
+    rcall wait
+    rcall wait
+    rcall wait    
+    cbi PORTB, PORTB0
+    rcall wait
+    rcall wait
+    rcall wait
+    rcall wait
+    rcall wait
+    rcall wait
+    rcall wait
+    rcall wait
+    rcall wait
+    rcall wait
+    rcall wait
+    rcall wait
+    rcall wait
+    rcall wait
+    rcall wait
     rcall wait
     rcall wait
     rjmp loop

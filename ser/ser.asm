@@ -1,5 +1,5 @@
 .nolist
-.include "../inc/tn2313def.inc"
+.include "../inc/m328pdef.inc"
 .list
 
 .def a = r16
@@ -13,16 +13,18 @@
 .org 0x0000
         rjmp start
 
-.include "../inc/ser.inc"
+.include "../inc/sermega.inc"
 
 start:
-        ldi a, low(RAMEND)             ; Init Stack Pointer
+        ldi a, low(RAMEND)              ; Init Stack Pointer
         out spl, a
+    .ifdef sph
+        ldi a, high(RAMEND)             ; Init Stack Pointer
+        out sph, a
+    .endif
 
-        ldi a, (1<<DDD6)
-        out DDRD, a
-        ldi a, (1<<PORTD6)
-        out PORTD, a
+        sbi DDRB, DDB0
+        sbi PORTB, PORTB
 
         SER_INIT CLOCK, BAUD
 

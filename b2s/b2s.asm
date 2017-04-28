@@ -1,28 +1,36 @@
 .nolist
-.include "../inc/tn2313def.inc"
+.include "../inc/m328pdef.inc"
 .list
+
+.def a = r16
+.def x = r17
+.def y = r18
 
 .cseg
 .org 0x0000
         rjmp main
 
-.include "../inc/ser.inc"
+.include "../inc/sermega.inc"
 .include "../inc/convert.inc"
 
 main:
-        ldi r16, low(RAMEND)             ; Init Stack Pointer
-        out spl, r16
+        ldi a, low(RAMEND)            ; Init Stack Pointer
+        out spl, a
+    .ifdef sph
+        ldi a, high(RAMEND)             ; Init Stack Pointer
+        out sph, a
+    .endif
 
-		ldi r16, $AD
-		ldi r17, $D3
-		ldi zl, low(string)
-		ldi zh, high(string)
-		rcall b2asc
+        ldi r16, $AD
+        ldi r17, $D3
+        ldi zl, low(string)
+        ldi zh, high(string)
+        rcall b2asc
 
-		SER_INIT 16000000, 9600
+        SER_INIT 16000000, 9600
 
-		sbi DDRD, DDD6
-		sbi PORTD, PORTD6
+        sbi DDRB, DDD0
+        sbi PORTB, PORTB0
 
 loop:
         ldd r16, z+3
@@ -37,7 +45,7 @@ loop:
         rcall ser_write
 
         nop
-		rjmp loop
+        rjmp loop
 
 delay:
         push r20
@@ -57,4 +65,4 @@ _1:
 
 .dseg
 string:
-		.byte 4
+        .byte 4
