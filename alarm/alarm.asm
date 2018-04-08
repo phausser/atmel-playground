@@ -1,4 +1,4 @@
-; avra alarm.asm && avrdude -p attiny85 -c usbasp -B 5 -U flash:w:alarm.hex
+ ; avra alarm.asm && avrdude -p attiny85 -c usbasp -B 5 -U flash:w:alarm.hex
 
 ; 1) Power Down Modus
 ; 2) Button = Blinken. 5 min oder bis Button gedrückt
@@ -8,11 +8,10 @@
 .list
 
 .cseg
-
 .org 0x0000
     rjmp init
 .org PCI0addr
-    rjmp pin
+    rjmp pci0
 
 init:
     ; Init Stack
@@ -32,24 +31,37 @@ init:
     ldi r16, (1 << PCIE)
     out GIMSK, r16
 
+    ldi r16, 5
+    sts counter, r16
+
     sei
 
+
     ; Main Loop
-loop:
-    ldi
-    
+main:
+    lds r17, counter
+    tst r17
+    breq _main_no_sleep
+
     ldi r16, (1 << SE) | (1 << SM1)
     out MCUCR, r16
 
     sleep
 
+_main_no_sleep:
+    dec r17
+    sts counter, r17
+
     sbi PORTB, PORTB3
     rcall delay
     cbi PORTB, PORTB3
-    rjmp loop
+    rjmp main
 
-pin:
+
+pci0:
     ;sbi PORTB, PORTB3
+    ldi r18, 10
+    sts counter, r18
     reti
 
     ; Simple Delay
@@ -63,5 +75,5 @@ _delay_loop:
     ret
 
 .dseg
-count:
-        .byte 0
+counter:
+.byte 0
