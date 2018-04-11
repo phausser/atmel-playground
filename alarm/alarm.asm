@@ -7,6 +7,10 @@
 .include "../inc/tn85def.inc"
 .list
 
+.def acc = r16
+.def counter = r17
+.def turn_on_pressed = r18
+
 .cseg
 .org 0x0000
     rjmp init
@@ -15,65 +19,117 @@
 
 init:
     ; Init Stack
-    ldi r16, low(RAMEND)
-    out spl, r16
-    ldi r16, high(RAMEND)
-    out sph, r16
+    ldi acc, low(RAMEND)
+    out spl, acc
+    ldi acc, high(RAMEND)
+    out sph, acc
 
     ; Init Ports
-    ldi r16, (1 << DDB3)
-    out DDRB, r16
+    ldi acc, (1 << DDB0) | (1 << DDB3)
+    out DDRB, acc
 
-    ; Init IRQ
-    ldi r16, (1 << PCINT4)
-    out PCMSK, r16
+    ; Enable pin change IRQ #4
+    ldi acc, (1 << PCINT4)
+    out PCMSK, acc
 
-    ldi r16, (1 << PCIE)
-    out GIMSK, r16
+    ; Enable pin change IRQs
+    ldi acc, (1 << PCIE)
+    out GIMSK, acc
 
-    ldi r16, 5
-    sts counter, r16
+    ; Enable sleep as power down mode
+    ldi acc, (1 << SE) | (1 << SM1)
+    out MCUCR, acc
+
+    ; Init PWM #0        
+    ldi acc, (1 << COM0A1) | (1 << COM0B1) | (1 << WGM01) | (1 << WGM00)
+    out TCCR0A, acc
+
+    ldi acc, (1 << CS00)
+    out TCCR0B, acc
+
+    clr	acc
+    out TCNT0, acc
+
+    ldi counter, 3*2
+    clr turn_on_pressed
 
     sei
 
 
     ; Main Loop
 main:
-    lds r17, counter
-    tst r17
-    breq _main_no_sleep
+    dec r25
+    dec r25
+    dec r25
+    dec r25
+    dec r25
+    dec r25
+    dec r25
+    dec r25
+    dec r25
+    dec r25
+    dec r25
+    dec r25
+    out	OCR0A, r25
 
-    ldi r16, (1 << SE) | (1 << SM1)
-    out MCUCR, r16
+    tst counter
+    brne _main_no_sleep
 
+    ; Good night
+    ;sbi PORTB, PORTB0
+    cbi PORTB, PORTB3
     sleep
+    ;cbi PORTB, PORTB0
 
 _main_no_sleep:
-    dec r17
-    sts counter, r17
+    dec counter
+
+    sbic PORTB, PORTB3
+    rjmp _main_pin_on
 
     sbi PORTB, PORTB3
-    rcall delay
+    rjmp _main_pin_off
+
+_main_pin_on:
     cbi PORTB, PORTB3
+_main_pin_off:
+
+    rcall delay
     rjmp main
 
 
 pci0:
-    ;sbi PORTB, PORTB3
-    ldi r18, 10
-    sts counter, r18
+    ; Is button down?
+    sbic PINB, PINB4
+    rjmp _pci0_button_is_up
+
+    ; Init counter and button flag
+    tst counter
+    brne _pci0_exit
+
+    ldi turn_on_pressed, 1
+    ldi counter, 100*2
     reti
+
+_pci0_button_is_up:
+    tst turn_on_pressed
+    brne _pci0_exit
+
+    clr counter
+
+_pci0_exit:
+    clr turn_on_pressed
+    reti
+
 
     ; Simple Delay
 delay:
-    ldi r22, 200
+    ldi r23, 4
 _delay_loop:
     dec r21
     brne _delay_loop
     dec r22
     brne _delay_loop
+    dec r23
+    brne _delay_loop
     ret
-
-.dseg
-counter:
-.byte 0
