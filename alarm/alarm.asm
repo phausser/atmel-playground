@@ -40,16 +40,6 @@ init:
     ldi acc, (1 << SE) | (1 << SM1)
     out MCUCR, acc
 
-    ; Init PWM #0        
-    ldi acc, (1 << COM0A1) | (1 << COM0B1) | (1 << WGM01) | (1 << WGM00)
-    out TCCR0A, acc
-
-    ldi acc, (1 << CS00)
-    out TCCR0B, acc
-
-    clr	acc
-    out TCNT0, acc
-
     ldi counter, 3*2
     clr turn_on_pressed
 
@@ -58,28 +48,14 @@ init:
 
     ; Main Loop
 main:
-    dec r25
-    dec r25
-    dec r25
-    dec r25
-    dec r25
-    dec r25
-    dec r25
-    dec r25
-    dec r25
-    dec r25
-    dec r25
-    dec r25
-    out	OCR0A, r25
-
     tst counter
     brne _main_no_sleep
 
     ; Good night
-    ;sbi PORTB, PORTB0
+    sbi PORTB, PORTB0
     cbi PORTB, PORTB3
     sleep
-    ;cbi PORTB, PORTB0
+    cbi PORTB, PORTB0
 
 _main_no_sleep:
     dec counter
